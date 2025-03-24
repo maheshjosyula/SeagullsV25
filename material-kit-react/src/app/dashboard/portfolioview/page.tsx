@@ -48,13 +48,17 @@ const PortfolioView = () => {
 
   // ✅ Convert `subLevels` to `children` for D3 compatibility
   const transformData = (node) => {
-    if (!node || !node.subLevels) return { name: node.name };
+  if (!node || !node.subLevels) {
+    return { name: node.name, level: node.Level, health: node.health || "unknown" }; 
+  }
 
-    return {
-      name: node.name,
-      children: node.subLevels.map(transformData),
-    };
+  return {
+    name: node.name,
+    level: node.Level,
+    health: node.health || "unknown",
+    children: node.subLevels.map(transformData),
   };
+};
 
   useEffect(() => {
     if (!selectedL4) {
